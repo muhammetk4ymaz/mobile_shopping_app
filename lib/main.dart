@@ -62,9 +62,9 @@ class _MyHomePageState extends State<MyHomePage> {
               });
             },
             currentIndex: _selectedPage,
-            items: const [
+            items: [
               BottomNavigationBarItem(
-                icon: Icon(Icons.home_outlined),
+                icon: Icon(Icons.home),
                 label: 'Home',
               ),
               BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Shop'),

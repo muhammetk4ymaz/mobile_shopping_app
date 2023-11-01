@@ -18,39 +18,37 @@ class _LoginPageState extends State<LoginPage> {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height / 4,
-                color: const Color.fromRGBO(1, 45, 61, 1),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Sign in to your Account',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 40),
-                      ),
-                      Text(
-                        'Welcome back! Login with your credentials',
-                        style: TextStyle(color: Colors.grey, fontSize: 16),
-                      ),
-                    ],
-                  ),
+        body: Column(
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height / 4,
+              color: const Color.fromRGBO(1, 45, 61, 1),
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 30),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Sign in to your Account',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 40),
+                    ),
+                    Text(
+                      'Welcome back! Login with your credentials',
+                      style: TextStyle(color: Colors.grey, fontSize: 16),
+                    ),
+                  ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(
-                    left: 40,
-                    right: 40,
-                    top: MediaQuery.of(context).size.height / 30),
+            ),
+            Container(
+              // color: Colors.red,
+              child: Padding(
+                padding: const EdgeInsets.all(30),
                 child: Column(children: [
                   Form(
                       // autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -123,11 +121,11 @@ class _LoginPageState extends State<LoginPage> {
                       }
                     },
                     child: Container(
-                      width: double.infinity,
+                      width: MediaQuery.of(context).size.width / 1.1,
                       height: MediaQuery.of(context).size.height / 15,
                       decoration: const BoxDecoration(
                           color: Color.fromRGBO(46, 98, 188, 1),
-                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                          borderRadius: BorderRadius.all(Radius.circular(30))),
                       child: const Center(
                           child: Text(
                         'Login',
@@ -151,6 +149,7 @@ class _LoginPageState extends State<LoginPage> {
                         style:
                             TextButton.styleFrom(foregroundColor: Colors.black),
                         child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SizedBox(
                               height: MediaQuery.of(context).size.height / 25,
@@ -192,27 +191,39 @@ class _LoginPageState extends State<LoginPage> {
                       )
                     ],
                   ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height / 10,
-                  ),
-                  Row(
+                ]),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                // color: Colors.green,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 30),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text('Don\'t have an account?'),
-                      TextButton(
-                          onPressed: () {
+                      SizedBox(
+                        width: 3,
+                      ),
+                      InkWell(
+                          onTap: () {
                             Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
                               builder: (context) => const SignUpPage(),
                             ));
                           },
-                          child: const Text('Register')),
+                          child: Text(
+                            'Register',
+                            style: TextStyle(color: Colors.blue),
+                          )),
                     ],
-                  )
-                ]),
-              )
-            ],
-          ),
+                  ),
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );
