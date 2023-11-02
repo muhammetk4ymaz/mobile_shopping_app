@@ -1,12 +1,11 @@
 class Product {
-  List<String> images;
+  List<Map<String, dynamic>> products;
   String category;
   String type;
-  String price;
+
   Product({
-    required this.images,
+    required this.products,
     required this.category,
     required this.type,
-    required this.price,
   });
 }

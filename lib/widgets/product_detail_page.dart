@@ -2,19 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobile_shopping_app/models/product.dart';
 
 class ProductDetailPage extends StatefulWidget {
-  final Product product;
+  Product product;
   final List<Product> productList;
-  const ProductDetailPage(
-      {required this.product, required this.productList, super.key});
+  List<Product> newProductList;
+  ProductDetailPage(
+      {required this.product,
+      required this.productList,
+      required this.newProductList,
+      super.key});
 
   @override
   State<ProductDetailPage> createState() => _ProductDetailPageState();
 }
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
+  int productIndex = 0;
   bool isFavorite = false;
   @override
   Widget build(BuildContext context) {
+    String imagePath = widget.product.products[productIndex]['imagePath'];
+    String price = widget.product.products[productIndex]['price'];
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -50,8 +57,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   decoration: BoxDecoration(
                     // border: Border.all(color: Colors.black),
                     image: DecorationImage(
-                        image: NetworkImage(widget.product.images[0]),
-                        fit: BoxFit.fill),
+                        image: AssetImage(imagePath), fit: BoxFit.fill),
                   ),
                 ),
                 Container(
@@ -63,7 +69,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         InkWell(
                           onTap: () {
                             setState(() {
-                              widget.product.price = '100';
+                              productIndex = 0;
                             });
                           },
                           child: Padding(
@@ -81,7 +87,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         InkWell(
                           onTap: () {
                             setState(() {
-                              widget.product.price = '80';
+                              productIndex = 1;
                             });
                           },
                           child: Padding(
@@ -99,7 +105,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         InkWell(
                           onTap: () {
                             setState(() {
-                              widget.product.price = '60';
+                              productIndex = 2;
                             });
                           },
                           child: Padding(
@@ -114,32 +120,66 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             ),
                           ),
                         ),
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              widget.product.price = '60';
-                            });
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 4),
-                            child: Container(
-                              height: 15,
-                              width: 15,
-                              decoration: BoxDecoration(
-                                  color: Colors.green,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
-                            ),
-                          ),
-                        ),
                       ]),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Container(
+                    height: 150,
+                    child: Expanded(
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: widget.product.products.length,
+                        itemBuilder: (context, productsIndex) {
+                          return Row(
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width / 3,
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                    image: DecorationImage(
+                                        image: AssetImage(widget
+                                                .product.products[productsIndex]
+                                            ['imagePath']),
+                                        fit: BoxFit.fill)),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              )
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                  ),
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
                   child: ExpansionTile(
-                    title: Text(
-                      'Product Description',
-                      style: TextStyle(color: Colors.black),
+                    initiallyExpanded: true,
+                    title: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Text(
+                        'Product Description',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Product Details',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: Colors.black),
+                        ),
+                        Text(
+                          'Lola, retro esintili bir tasarıma sahip uzun bir çizmedir. Kalın ve hafif tabanı iç ağız kısmındaki suni kürk detayıyla gerçek deriden üretilmiştir.',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ],
                     ),
                     children: [
                       Padding(
@@ -149,13 +189,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'Product Details',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 16),
-                              ),
-                              Text(
-                                  'Lola, retro esintili bir tasarıma sahip uzun bir çizmedir. Kalın ve hafif tabanı iç ağız kısmındaki suni kürk detayıyla gerçek deriden üretilmiştir.'),
                               SizedBox(
                                 height: 5,
                               ),
@@ -202,42 +235,44 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           height: 5,
                         ),
                         Expanded(
-                          child: ListView(
+                          child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width / 3,
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                            widget.productList[0].images[0]),
-                                        fit: BoxFit.fill)),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width / 3,
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                            widget.productList[1].images[0]),
-                                        fit: BoxFit.fill)),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width / 3,
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                            widget.productList[0].images[0]),
-                                        fit: BoxFit.fill)),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width / 3,
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                            widget.productList[1].images[0]),
-                                        fit: BoxFit.fill)),
-                              ),
-                            ],
+                            itemCount: widget.newProductList.length,
+                            itemBuilder: (context, index) {
+                              return Row(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        productIndex = 0;
+                                        widget.product =
+                                            widget.newProductList[index];
+                                        widget.newProductList =
+                                            List.from(widget.productList);
+
+                                        widget.newProductList
+                                            .remove(widget.product);
+                                      });
+                                    },
+                                    child: Container(
+                                      width:
+                                          MediaQuery.of(context).size.width / 3,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10)),
+                                          image: DecorationImage(
+                                              image: AssetImage(widget
+                                                  .newProductList[index]
+                                                  .products[0]['imagePath']),
+                                              fit: BoxFit.fill)),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  )
+                                ],
+                              );
+                            },
                           ),
                         )
                       ],
@@ -258,7 +293,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          '\$' + widget.product.price,
+                          '\$' + price,
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
