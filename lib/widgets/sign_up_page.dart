@@ -1,6 +1,11 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter_mobile_shopping_app/main.dart';
+import 'package:flutter_mobile_shopping_app/providers/user_model.dart';
+
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile_shopping_app/widgets/login_page.dart';
+import 'package:provider/provider.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -10,11 +15,38 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  String? email, password, confirmPassword;
+  String? email, password, confirmPassword, name, surname;
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmPassword = TextEditingController();
 
   final formkey = GlobalKey<FormState>();
+
+  Future<void> _signUpWithEmailAndPassword(
+      String email, String password, String name, String surname) async {
+    try {
+      final userModel = Provider.of<UserModel>(context, listen: false);
+      await userModel
+          .signUpWithEmailAndPassword(email, password, name, surname)
+          .whenComplete(
+        () {
+          Fluttertoast.showToast(
+              msg: 'ACCOUNT CREATED',
+              backgroundColor: Colors.green,
+              toastLength: Toast.LENGTH_SHORT);
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => MyHomePage(),
+          ));
+        },
+      );
+    } catch (e) {
+      debugPrint(e.toString());
+      Fluttertoast.showToast(
+          msg: 'ACCOUNT UNCREATED',
+          backgroundColor: Colors.red,
+          toastLength: Toast.LENGTH_SHORT);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -49,7 +81,7 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             Container(
               // color: Colors.red,
-              height: MediaQuery.of(context).size.height / 2.8,
+              height: MediaQuery.of(context).size.height / 2.1,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Form(
@@ -57,6 +89,35 @@ class _SignUpPageState extends State<SignUpPage> {
                     child: Column(
                       children: [
                         TextFormField(
+                          decoration: const InputDecoration(
+                              labelText: 'Name', icon: Icon(Icons.person)),
+                          validator: (newName) {
+                            if (newName!.isNotEmpty) {
+                              return null;
+                            } else {
+                              return 'Please enter a name';
+                            }
+                          },
+                          onSaved: (newName) {
+                            name = newName;
+                          },
+                        ),
+                        TextFormField(
+                          decoration: const InputDecoration(
+                              labelText: 'Surname', icon: Icon(Icons.person)),
+                          validator: (newSurname) {
+                            if (newSurname!.isNotEmpty) {
+                              return null;
+                            } else {
+                              return 'Please enter a surnaname';
+                            }
+                          },
+                          onSaved: (newSurname) {
+                            surname = newSurname;
+                          },
+                        ),
+                        TextFormField(
+                          keyboardType: TextInputType.emailAddress,
                           decoration: const InputDecoration(
                               labelText: 'Email', icon: Icon(Icons.email)),
                           validator: (newEmail) {
@@ -73,10 +134,8 @@ class _SignUpPageState extends State<SignUpPage> {
                             email = newEmail;
                           },
                         ),
-                        const SizedBox(
-                          height: 30,
-                        ),
                         TextFormField(
+                          obscureText: true,
                           controller: _password,
                           decoration: const InputDecoration(
                               labelText: 'Password', icon: Icon(Icons.lock)),
@@ -94,10 +153,8 @@ class _SignUpPageState extends State<SignUpPage> {
                             password = newValue;
                           },
                         ),
-                        const SizedBox(
-                          height: 30,
-                        ),
                         TextFormField(
+                          obscureText: true,
                           controller: _confirmPassword,
                           decoration: const InputDecoration(
                               labelText: 'Confirm Password',
@@ -130,9 +187,11 @@ class _SignUpPageState extends State<SignUpPage> {
                       onTap: () {
                         if (formkey.currentState!.validate()) {
                           formkey.currentState!.save();
-                          debugPrint('Email: $email');
+                          /*  debugPrint('Email: $email');
                           debugPrint('Password: $password');
-                          debugPrint('Confirm Password: $confirmPassword');
+                          debugPrint('Confirm Password: $confirmPassword'); */
+                          _signUpWithEmailAndPassword(
+                              email!, password!, name!, surname!);
                         }
                       },
                       child: Container(

@@ -1,12 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobile_shopping_app/main.dart';
+import 'package:flutter_mobile_shopping_app/providers/user_model.dart';
 import 'package:flutter_mobile_shopping_app/widgets/login_page.dart';
 import 'package:flutter_mobile_shopping_app/widgets/sign_up_page.dart';
+import 'package:provider/provider.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
 
-  @override
   Widget build(BuildContext context) {
+    final _userModel = Provider.of<UserModel>(context);
+
+    if (_userModel.state == ViewState.Idle) {
+      if (_userModel.myUser == null) {
+        return LandingWigdet(context);
+      } else {
+        return MyHomePage();
+      }
+    } else {
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+  }
+
+  SafeArea LandingWigdet(BuildContext context) {
+    
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,

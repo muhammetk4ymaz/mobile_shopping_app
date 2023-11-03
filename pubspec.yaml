@@ -38,6 +38,11 @@ dependencies:
   dots_indicator: ^3.0.0
   indicator_navbar: ^0.0.1+7
   email_validator: ^2.1.17
+  firebase_auth: ^4.12.1
+  firebase_core: ^2.21.0
+  provider: ^6.0.5
+  fluttertoast: ^8.2.2
+  cloud_firestore: ^4.12.2
 
 dev_dependencies:
   flutter_test:

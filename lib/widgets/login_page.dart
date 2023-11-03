@@ -1,7 +1,10 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile_shopping_app/main.dart';
+import 'package:flutter_mobile_shopping_app/providers/user_model.dart';
 import 'package:flutter_mobile_shopping_app/widgets/sign_up_page.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -13,6 +16,33 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   String? email, password;
   final formkey = GlobalKey<FormState>();
+
+  Future<void> _signInEmailAndPassword(String email, String password) async {
+    try {
+      final userModel = Provider.of<UserModel>(context, listen: false);
+      await userModel
+          .signInWithEmailAndPassword(email, password)
+          .whenComplete(() {
+        Fluttertoast.showToast(
+            msg: 'LOGIN SUCCESSFUL',
+            backgroundColor: Colors.green,
+            toastLength: Toast.LENGTH_SHORT);
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (context) => const MyHomePage(),
+          ),
+          (route) => false,
+        );
+      });
+    } catch (e) {
+      debugPrint(e.toString());
+      Fluttertoast.showToast(
+          msg: 'LOGIN UNSUCCESSFUL',
+          backgroundColor: Colors.red,
+          toastLength: Toast.LENGTH_SHORT);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -56,13 +86,13 @@ class _LoginPageState extends State<LoginPage> {
                       child: Column(
                         children: [
                           TextFormField(
-                            initialValue: 'muhammetk4ymaz@hotmail.com',
+                            initialValue: 'yaseminuslu@hotmail.com',
                             keyboardType: TextInputType.emailAddress,
                             decoration: const InputDecoration(
                                 labelText: 'Email', icon: Icon(Icons.email)),
                             onSaved: (newEmail) {
                               email = newEmail;
-                              debugPrint(email);
+                              // debugPrint(email);
                             },
                             validator: (newEmail) {
                               if (newEmail!.isNotEmpty) {
@@ -79,13 +109,13 @@ class _LoginPageState extends State<LoginPage> {
                             height: 10,
                           ),
                           TextFormField(
-                            initialValue: '11223344',
+                            initialValue: '123456',
                             obscureText: true,
                             decoration: const InputDecoration(
                                 labelText: 'Password', icon: Icon(Icons.lock)),
                             onSaved: (newPassword) {
                               password = newPassword;
-                              debugPrint(password);
+                              // debugPrint(password);
                             },
                             validator: (newPassword) {
                               if (newPassword!.isNotEmpty) {
@@ -112,12 +142,13 @@ class _LoginPageState extends State<LoginPage> {
                     onTap: () {
                       if (formkey.currentState!.validate()) {
                         formkey.currentState!.save();
-                        Navigator.of(context).pushAndRemoveUntil(
+                        _signInEmailAndPassword(email!, password!);
+                        /*  Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(
                             builder: (context) => const MyHomePage(),
                           ),
                           (route) => false,
-                        );
+                        ); */
                       }
                     },
                     child: Container(
