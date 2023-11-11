@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile_shopping_app/models/my_user.dart';
 import 'package:flutter_mobile_shopping_app/providers/user_model.dart';
-import 'package:flutter_mobile_shopping_app/widgets/user_information_page.dart';
+import 'package:flutter_mobile_shopping_app/screens/sign_in/sign_in_screen.dart';
+
+import 'package:flutter_mobile_shopping_app/widgets/my_account_page.dart';
 import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -13,18 +15,29 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   int _selectedIndex = 3;
+
+  Future<void> _signOut() async {
+    final userModel = Provider.of<UserModel>(context, listen: false);
+
+    try {
+      await userModel.signOut().whenComplete(() => Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SignInScreen(),)));
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final _userModel = Provider.of<UserModel>(context);
+    final userModel = Provider.of<UserModel>(context, listen: true);
 
-    if (_userModel.myUser != null) {
-      MyUser myUser = _userModel.myUser!;
-      String nameAndSurname = myUser.name + ' ' + myUser.surname;
-      return SafeArea(
-          child: SingleChildScrollView(
+    MyUser myUser = userModel.myUser!;
+    String nameAndSurname = '${myUser.firstName} ${myUser.lastName}';
+    return SafeArea(
+        child: Scaffold(
+      body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 2.5,
               // color: Colors.red,
@@ -36,32 +49,43 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Container(
                       width: 100,
                       height: 100,
-                      decoration: BoxDecoration(
-                          color: Colors.teal,
-                          borderRadius: BorderRadius.all(Radius.circular(50))),
-                      child: Icon(
-                        Icons.person,
-                        size: 75,
-                      ),
+                      decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(50)),
+                          image: DecorationImage(
+                              image: AssetImage('assets/images/pp.jpg'))),
                     ),
                   ),
+                  /*  Padding(
+                      padding: const EdgeInsets.only(bottom: 15),
+                      child: Container(
+                        width: 100,
+                        height: 100,
+                        decoration: const BoxDecoration(
+                            color: Colors.teal,
+                            borderRadius: BorderRadius.all(Radius.circular(50))),
+                        child: const Icon(
+                          Icons.person,
+                          size: 75,
+                        ),
+                      ),
+                    ), */
                   Padding(
                     padding: const EdgeInsets.only(bottom: 30, top: 5),
                     child: Text(
                       nameAndSurname.toUpperCase(),
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+                      style: const TextStyle(
+                          fontSize: 24, fontWeight: FontWeight.w500),
                     ),
                   ),
                   ElevatedButton(
                     onPressed: () {},
-                    child: Text(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        side: const BorderSide(color: Colors.black)),
+                    child: const Text(
                       'EDIT PROFILE',
                       style: TextStyle(color: Colors.black),
                     ),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        side: BorderSide(color: Colors.black)),
                   )
                 ],
               ),
@@ -77,7 +101,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 height: 75,
                 backgroundColor: Colors.white,
                 selectedIndex: _selectedIndex,
-                destinations: [
+                destinations: const [
                   NavigationDestination(
                       selectedIcon: Icon(
                         Icons.auto_awesome_mosaic,
@@ -123,53 +147,84 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       label: 'Settings'),
                 ]),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             ListTile(
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => UserInformationPage(myUser: myUser),
-                ));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MyAccountPage(),
+                    ));
               },
-              contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 16),
-              title: Text(
-                'MY USER INFORMATION',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
+              leading: const Icon(
+                Icons.account_circle_outlined,
+                color: Colors.black,
+                size: 30,
               ),
-              subtitle: Text('View'),
-              trailing: Icon(
+              title: const Text(
+                'My Account',
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey),
+              ),
+              trailing: const Icon(
                 Icons.arrow_forward_ios,
-                size: 20,
+                size: 25,
                 color: Colors.black,
               ),
             ),
-            Divider(color: Colors.grey, endIndent: 16, indent: 16),
+            const Divider(color: Colors.grey, endIndent: 16, indent: 16),
+            const ListTile(
+              contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 30),
+              leading: Icon(
+                Icons.notifications_outlined,
+                color: Colors.black,
+                size: 30,
+              ),
+              title: Text(
+                'Notifications',
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey),
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                size: 25,
+                color: Colors.black,
+              ),
+            ),
+            const Divider(color: Colors.grey, endIndent: 16, indent: 16),
             ListTile(
-              contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 16),
-              title: Text(
-                'CHANGE PASSWORD',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-              ),
-              subtitle: Text('View'),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                size: 20,
+              onTap: () {
+                _signOut();
+              },
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
+              leading: const Icon(
+                Icons.logout_rounded,
                 color: Colors.black,
+                size: 30,
+              ),
+              title: const Text(
+                'Log Out',
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey),
               ),
             ),
-            Divider(
+            const Divider(
               color: Colors.grey,
             ),
           ],
         ),
-      ));
-    } else {
-      return const Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
-    }
+      ),
+    ));
   }
 }

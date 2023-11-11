@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile_shopping_app/models/product.dart';
-import 'package:flutter_mobile_shopping_app/widgets/product_detail_page.dart';
+
+
+import 'package:flutter_mobile_shopping_app/widgets/product_newdetail_page.dart';
 
 class TopPicksListItem extends StatelessWidget {
   final Product product;
@@ -18,8 +20,8 @@ class TopPicksListItem extends StatelessWidget {
             onTap: () {
               final List<Product> newProductList = List.from(productList);
               newProductList.remove(product);
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => ProductDetailPage(
+              Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
+                builder: (context) => ProductNewDetailPage(
                   product: product,
                   productList: productList,
                   newProductList: newProductList,
@@ -31,8 +33,7 @@ class TopPicksListItem extends StatelessWidget {
               width: 170,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage(product.products[0]['imagePath']),
-                    fit: BoxFit.fill),
+                    image: NetworkImage(product.images[0]), fit: BoxFit.fill),
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
                 color: Colors.grey.shade300,
               ),
@@ -42,28 +43,29 @@ class TopPicksListItem extends StatelessWidget {
             height: 2,
           ),
           Text(
-            product.type,
-            style: TextStyle(fontWeight: FontWeight.w500),
+            product.title,
+            style: const TextStyle(fontWeight: FontWeight.w500),
           ),
           const SizedBox(
             height: 2,
           ),
           Text(
             product.category,
-            style: TextStyle(fontWeight: FontWeight.w400, color: Colors.grey),
+            style: const TextStyle(
+                fontWeight: FontWeight.w400, color: Colors.grey),
           ),
           const SizedBox(
             height: 2,
           ),
           Text(
-            "\$" + product.products[0]['price'],
-            style: TextStyle(
+            "\$" + product.price.toString(),
+            style: const TextStyle(
               fontWeight: FontWeight.w400,
             ),
           ),
         ],
       ),
-      SizedBox(
+      const SizedBox(
         width: 10,
       )
     ]);

@@ -1,7 +1,5 @@
 import 'package:email_validator/email_validator.dart';
-import 'package:flutter_mobile_shopping_app/main.dart';
 import 'package:flutter_mobile_shopping_app/providers/user_model.dart';
-
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile_shopping_app/widgets/login_page.dart';
@@ -33,9 +31,9 @@ class _SignUpPageState extends State<SignUpPage> {
               msg: 'ACCOUNT CREATED',
               backgroundColor: Colors.green,
               toastLength: Toast.LENGTH_SHORT);
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => MyHomePage(),
-          ));
+          /* Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => const MyHomePage(),
+          )); */
         },
       );
     } catch (e) {
@@ -56,19 +54,19 @@ class _SignUpPageState extends State<SignUpPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
+            SizedBox(
               // color: Colors.red,
               height: MediaQuery.sizeOf(context).height / 4,
-              child: Center(
+              child: const Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
+                    Text(
                       'Sign Up',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
                     ),
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.all(20.0),
                       child: Text(
                         'Create an Account its free',
@@ -79,7 +77,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               // color: Colors.red,
               height: MediaQuery.of(context).size.height / 2.1,
               child: Padding(
@@ -178,7 +176,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
             Expanded(
-              child: Container(
+              child: SizedBox(
                 width: MediaQuery.of(context).size.width / 1.1,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

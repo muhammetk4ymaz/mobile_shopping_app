@@ -7,7 +7,6 @@ class UserDAOFirebaseFireStore implements UserDAO {
   final userCollection = FirebaseFirestore.instance.collection('users');
   @override
   Future<void> delete(MyUser myUser) {
-    // TODO: implement delete
     throw UnimplementedError();
   }
 
@@ -23,27 +22,30 @@ class UserDAOFirebaseFireStore implements UserDAO {
 
   @override
   Future<MyUser> findById(String id) async {
-    var userDocuments = await userCollection.get();
-    for (var element in userDocuments.docs) {
-      if (element.data()['uid'] == id) {
-        return MyUser.fromMap(element.data());
-      }
-    }
-    return Future.error('ERROR');
+    DocumentSnapshot documentSnapshot = await userCollection.doc(id).get();
+    return MyUser.fromMap(documentSnapshot.data() as Map<String, dynamic>);
   }
 
   @override
   Future<void> save(MyUser myUser) async {
-    try {
-      await userCollection.doc().set(myUser.toMap());
+    /* try {
+      await userCollection.doc(myUser.id).set(myUser.toMap());
     } catch (e) {
       debugPrint(e.toString());
-    }
+    } */
   }
 
   @override
-  Future<void> update(MyUser myUser) {
-    // TODO: implement update
-    throw UnimplementedError();
+  Future<MyUser> update(MyUser myUser, MyUser newUser) async {
+    if (myUser != newUser) {
+      var userDocuments = await userCollection.get();
+      for (var element in userDocuments.docs) {
+        if (element.data()['id'] == myUser.id) {
+          userCollection.doc(element.id).update(newUser.toMap());
+          return newUser;
+        }
+      }
+    }
+    return myUser;
   }
 }

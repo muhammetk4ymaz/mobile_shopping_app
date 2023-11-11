@@ -6,5 +6,4 @@ abstract class AuthService {
   Future<MyUser?> signInWithEmailAndPassword(String email, String password);
   Future<void> signOut();
   Future<MyUser?> currentUser();
-  
 }

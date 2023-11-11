@@ -1,10 +1,22 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile_shopping_app/firebase_options.dart';
+import 'package:flutter_mobile_shopping_app/providers/product_model.dart';
+
 import 'package:flutter_mobile_shopping_app/providers/user_model.dart';
+import 'package:flutter_mobile_shopping_app/screens/bag/bag_screen.dart';
+import 'package:flutter_mobile_shopping_app/screens/favorites/favorites_screen.dart';
+import 'package:flutter_mobile_shopping_app/screens/home/home_screen.dart';
+
+import 'package:flutter_mobile_shopping_app/size_config.dart';
+import 'package:flutter_mobile_shopping_app/theme.dart';
+
 import 'package:flutter_mobile_shopping_app/widgets/landing_page.dart';
 
-import 'package:flutter_mobile_shopping_app/widgets/bottom_bar_pages.dart';
+import 'package:flutter_mobile_shopping_app/widgets/my_custom_bottom_navigation_bar.dart';
+import 'package:flutter_mobile_shopping_app/widgets/profile_page.dart';
+import 'package:flutter_mobile_shopping_app/widgets/shop_page.dart';
+import 'package:flutter_mobile_shopping_app/widgets/tab_items.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -25,10 +37,16 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => UserModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ProductModel(),
         )
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        theme: theme(),
+
+        // home: LandingPage(),
         home: LandingPage(),
       ),
     );
@@ -43,114 +61,38 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late BottomBarPages bottomBarPages;
-  int _selectedPage = 0;
+  TabItem _currentTab = TabItem.Home;
 
-  @override
-  void initState() {
-    super.initState();
-    bottomBarPages = BottomBarPages();
-  }
+  Map<TabItem, GlobalKey<NavigatorState>> navigatorKeys = {
+    TabItem.Home: GlobalKey<NavigatorState>(),
+    TabItem.Shop: GlobalKey<NavigatorState>(),
+    TabItem.Favorites: GlobalKey<NavigatorState>(),
+    TabItem.Bag: GlobalKey<NavigatorState>(),
+    TabItem.Profile: GlobalKey<NavigatorState>(),
+  };
 
-  Future<void> _signOut() async {
-    try {
-      final userModel = Provider.of<UserModel>(context, listen: false);
-
-      await userModel
-          .signOut()
-          .whenComplete(() => Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(
-                builder: (context) => const LandingPage(),
-              ),
-              (route) => false));
-    } catch (e) {
-      print(e); // TODO: show dialog with error
-    }
+  Map<TabItem, Widget> _bottomBarPages() {
+    return {
+      TabItem.Home: const HomeScreen(),
+      TabItem.Shop: const ShopPage(),
+      TabItem.Favorites: const FavoritesScreen(),
+      TabItem.Bag: const BagScreen(),
+      TabItem.Profile: const ProfilePage(),
+    };
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          backgroundColor: const Color.fromRGBO(244, 243, 243, 1),
-          appBar: craeteAppBar(),
-          body: bottomBarPages.bottomBarPagesList[_selectedPage],
-          bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            fixedColor: Colors.black,
-            unselectedItemColor: Colors.grey,
-            onTap: (value) {
-              setState(() {
-                _selectedPage = value;
-              });
-            },
-            currentIndex: _selectedPage,
-            items: const [
-              BottomNavigationBarItem(
-                activeIcon: Icon(Icons.home),
-                icon: Icon(Icons.home_outlined),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                  activeIcon: Icon(Icons.search),
-                  icon: Icon(Icons.search_outlined),
-                  label: 'Shop'),
-              BottomNavigationBarItem(
-                  activeIcon: Icon(
-                    Icons.favorite,
-                  ),
-                  icon: Icon(Icons.favorite_outline),
-                  label: 'Favorites'),
-              BottomNavigationBarItem(
-                  activeIcon: Icon(Icons.shopping_bag),
-                  icon: Icon(Icons.shopping_bag_outlined),
-                  label: 'Bag'),
-              BottomNavigationBarItem(
-                  activeIcon: Icon(Icons.person),
-                  icon: Icon(Icons.person_outlined),
-                  label: 'Profile'),
-            ],
-          )),
+    SizeConfig().init(context);
+    return MyCustomBottomNavigationBar(
+      bottomBarPages: _bottomBarPages(),
+      currentTab: _currentTab,
+      navigatorKeys: navigatorKeys,
+      onSelectedTab: (value) {
+        setState(() {
+          _currentTab = value;
+        });
+      },
     );
-  }
-
-  AppBar HomePageAppBar() {
-    return AppBar(
-      backgroundColor: Colors.white,
-      elevation: 0,
-      actions: [
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.search),
-          color: Colors.grey.shade700,
-        ),
-        IconButton(
-          onPressed: () {
-            _signOut();
-          },
-          icon: const Icon(Icons.logout),
-          color: Colors.black,
-        )
-      ],
-    );
-  }
-
-  craeteAppBar() {
-    switch (_selectedPage) {
-      case 0:
-        return HomePageAppBar();
-
-      case 1:
-        return HomePageAppBar();
-
-      case 2:
-        return HomePageAppBar();
-
-      case 3:
-        return HomePageAppBar();
-
-      case 4:
-        return null;
-    }
   }
 }

@@ -4,6 +4,6 @@ abstract class UserDAO {
   Future<MyUser?> findById(String id);
   Future<List<MyUser>> findAll();
   Future<void> save(MyUser myUser);
-  Future<void> update(MyUser myUser);
+  Future<MyUser> update(MyUser myUser, MyUser newUser);
   Future<void> delete(MyUser myUser);
 }
