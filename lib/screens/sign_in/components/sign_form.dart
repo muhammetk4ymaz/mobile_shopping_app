@@ -2,7 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile_shopping_app/components/custom_soffix_icon.dart';
 import 'package:flutter_mobile_shopping_app/components/default_button.dart';
-import 'package:flutter_mobile_shopping_app/main.dart';
+
 import 'package:flutter_mobile_shopping_app/models/my_user.dart';
 import 'package:flutter_mobile_shopping_app/providers/user_model.dart';
 import 'package:flutter_mobile_shopping_app/size_config.dart';
@@ -85,7 +85,7 @@ class SignFormState extends State<SignForm> {
           Row(
             children: [
               Checkbox(
-                activeColor: Color.fromRGBO(46, 98, 188, 1),
+                activeColor: const Color.fromRGBO(46, 98, 188, 1),
                 value: remember,
                 onChanged: (value) {
                   setState(() {
@@ -93,9 +93,9 @@ class SignFormState extends State<SignForm> {
                   });
                 },
               ),
-              Text('Remeber me'),
-              Spacer(),
-              Text(
+              const Text('Remeber me'),
+              const Spacer(),
+              const Text(
                 'Forgot Password',
                 style: TextStyle(decoration: TextDecoration.underline),
               )
@@ -112,7 +112,7 @@ class SignFormState extends State<SignForm> {
                   _signInEmailAndPassword(email!, password!);
                 }
               },
-              color: Color.fromRGBO(46, 98, 188, 1))
+              color: const Color.fromRGBO(46, 98, 188, 1))
         ],
       ),
     );
@@ -122,7 +122,7 @@ class SignFormState extends State<SignForm> {
     return TextFormField(
       initialValue: '9uQFF1Lh',
       // obscureText: true,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
           labelText: 'Password',
           hintText: "Enter your password",
           floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -147,7 +147,7 @@ class SignFormState extends State<SignForm> {
     return TextFormField(
       initialValue: 'atuny0@sohu.com',
       keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
           labelText: 'Email',
           hintText: "Enter your email",
           floatingLabelBehavior: FloatingLabelBehavior.always,

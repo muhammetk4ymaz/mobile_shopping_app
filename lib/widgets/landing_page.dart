@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile_shopping_app/main.dart';
 import 'package:flutter_mobile_shopping_app/providers/user_model.dart';
-import 'package:flutter_mobile_shopping_app/screens/sign_in/sign_in_screen.dart';
 import 'package:flutter_mobile_shopping_app/screens/splash/splash_screen.dart';
-import 'package:flutter_mobile_shopping_app/widgets/login_page.dart';
 import 'package:provider/provider.dart';
 
 class LandingPage extends StatelessWidget {

@@ -34,7 +34,7 @@ class _ProductNewDetailPageState extends State<ProductNewDetailPage> {
           centerTitle: true,
           title: Text(
             widget.product.title,
-            style: TextStyle(color: Colors.black, fontSize: 16),
+            style: const TextStyle(color: Colors.black, fontSize: 16),
           ),
           backgroundColor: Colors.white,
           elevation: 0,
@@ -92,16 +92,16 @@ class _ProductNewDetailPageState extends State<ProductNewDetailPage> {
                             child: Container(
                               height: 70,
                               width: 80,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(10)),
+                              ),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Image.network(
                                   widget.product.images[value],
                                 ),
-                              ),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(10)),
                               ),
                             ),
                           ),
@@ -205,10 +205,10 @@ class _ProductNewDetailPageState extends State<ProductNewDetailPage> {
                                             widget.newProductList[index];
                                         widget.newProductList =
                                             List.from(widget.productList);
-                                        widget.newProductList.shuffle();
 
                                         widget.newProductList
                                             .remove(widget.product);
+                                        widget.newProductList.shuffle();
                                       });
                                     },
                                     child: Container(

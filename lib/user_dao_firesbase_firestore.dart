@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_mobile_shopping_app/models/my_user.dart';
 import 'package:flutter_mobile_shopping_app/user_dao.dart';
 

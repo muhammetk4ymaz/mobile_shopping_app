@@ -1,6 +1,5 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobile_shopping_app/components/default_button.dart';
 import 'package:flutter_mobile_shopping_app/models/my_user.dart';
 import 'package:flutter_mobile_shopping_app/providers/user_model.dart';
 import 'package:flutter_mobile_shopping_app/size_config.dart';
@@ -34,12 +33,12 @@ class _MyAccountPageState extends State<MyAccountPage> {
           width: double.infinity,
           child: Column(
             children: [
-              Spacer(),
+              const Spacer(),
               Text(
                 'My Account',
                 style: TextStyle(fontSize: getProportionateScreenWidth(30)),
               ),
-              Spacer(),
+              const Spacer(),
               Form(
                   key: formkey,
                   child: Padding(
@@ -153,14 +152,15 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                         firstName: _name.text,
                                         lastName: _surname.text,
                                         email: _email.text,
-                                        password: userModel.myUser!.password);
+                                        password: userModel.myUser!.password,
+                                        image: '');
 
                                     if (userModel.myUser != newMyUser) {
                                       if (userModel.myUser!.email !=
                                           newMyUser.email) {
                                         //   userModel.changeEmail(newMyUser.email);
                                       }
-                                     /*  await userModel
+                                      /*  await userModel
                                           .updateUser(
                                               userModel.myUser!, newMyUser)
                                           .whenComplete(() =>
@@ -191,7 +191,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                       ],
                     ),
                   )),
-              Spacer(
+              const Spacer(
                 flex: 3,
               ),
             ],

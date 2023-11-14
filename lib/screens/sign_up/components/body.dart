@@ -1,8 +1,4 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobile_shopping_app/components/custom_soffix_icon.dart';
-import 'package:flutter_mobile_shopping_app/components/default_button.dart';
-import 'package:flutter_mobile_shopping_app/screens/sign_in/sign_in_screen.dart';
 import 'package:flutter_mobile_shopping_app/screens/sign_up/components/sign_up_form.dart';
 import 'package:flutter_mobile_shopping_app/size_config.dart';
 
@@ -48,7 +44,7 @@ class _BodyState extends State<Body> {
                 child: Container(
                   width: SizeConfig.screenWidth,
                   height: SizeConfig.screenHeight! * 0.8,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20),
@@ -57,7 +53,7 @@ class _BodyState extends State<Body> {
               ),
             ],
           ),
-          SignUpForm(),
+          const SignUpForm(),
         ],
       ),
     ));

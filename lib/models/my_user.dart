@@ -7,13 +7,16 @@ class MyUser {
   final String lastName;
   final String email;
   final String password;
+  final String image;
   MyUser({
     required this.id,
     required this.firstName,
     required this.lastName,
     required this.email,
     required this.password,
+    required this.image,
   });
+  
   
 
   MyUser copyWith({
@@ -22,6 +25,7 @@ class MyUser {
     String? lastName,
     String? email,
     String? password,
+    String? image,
   }) {
     return MyUser(
       id: id ?? this.id,
@@ -29,6 +33,7 @@ class MyUser {
       lastName: lastName ?? this.lastName,
       email: email ?? this.email,
       password: password ?? this.password,
+      image: image ?? this.image,
     );
   }
 
@@ -39,6 +44,7 @@ class MyUser {
       'lastName': lastName,
       'email': email,
       'password': password,
+      'image': image,
     };
   }
 
@@ -49,6 +55,7 @@ class MyUser {
       lastName: map['lastName'] as String,
       email: map['email'] as String,
       password: map['password'] as String,
+      image: map['image'] as String,
     );
   }
 
@@ -58,7 +65,7 @@ class MyUser {
 
   @override
   String toString() {
-    return 'MyUser(id: $id, firstName: $firstName, lastName: $lastName, email: $email, password: $password)';
+    return 'MyUser(id: $id, firstName: $firstName, lastName: $lastName, email: $email, password: $password, image: $image)';
   }
 
   @override
@@ -70,7 +77,8 @@ class MyUser {
       other.firstName == firstName &&
       other.lastName == lastName &&
       other.email == email &&
-      other.password == password;
+      other.password == password &&
+      other.image == image;
   }
 
   @override
@@ -79,6 +87,7 @@ class MyUser {
       firstName.hashCode ^
       lastName.hashCode ^
       email.hashCode ^
-      password.hashCode;
+      password.hashCode ^
+      image.hashCode;
   }
 }

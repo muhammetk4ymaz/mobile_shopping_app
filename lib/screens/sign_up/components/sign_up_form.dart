@@ -103,7 +103,7 @@ class _SignUpFormState extends State<SignUpForm> {
               GestureDetector(
                 onTap: () =>
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => SignInScreen(),
+                  builder: (context) => const SignInScreen(),
                 )),
                 child: Text(
                   "Sign In",
@@ -121,7 +121,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildNameFormField() {
     return TextFormField(
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelText: 'Name',
         hintText: "Enter your name",
@@ -142,7 +142,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildSurnameFormField() {
     return TextFormField(
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelText: 'Surname',
         hintText: "Enter your surname",
@@ -164,7 +164,7 @@ class _SignUpFormState extends State<SignUpForm> {
   TextFormField buildEmailFormField() {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
           labelText: 'Email',
           hintText: "Enter your email",
           floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -192,7 +192,7 @@ class _SignUpFormState extends State<SignUpForm> {
     return TextFormField(
       controller: _password,
       obscureText: true,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
           labelText: 'Password',
           hintText: "Enter your password",
           floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -220,7 +220,7 @@ class _SignUpFormState extends State<SignUpForm> {
     return TextFormField(
       controller: _confirmPassword,
       obscureText: true,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
           labelText: 'Confirm Password',
           hintText: "Enter your password",
           floatingLabelBehavior: FloatingLabelBehavior.always,

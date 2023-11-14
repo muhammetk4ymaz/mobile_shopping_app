@@ -11,9 +11,9 @@ class SignInScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text('Sign In'),
+        title: const Text('Sign In'),
       ),
-      body: Body(),
+      body: const Body(),
     );
   }
 }

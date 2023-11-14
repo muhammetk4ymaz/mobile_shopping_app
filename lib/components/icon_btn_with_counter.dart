@@ -9,14 +9,14 @@ class IconBtnWithCounter extends StatelessWidget {
     required this.press,
   }) : super(key: key);
 
-  final IconData icon;
+  final Icon icon;
   final int numOfItems;
-  final GestureTapCallback press;
+  final GestureTapCallback? press;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: press,
       borderRadius: BorderRadius.circular(50),
       child: Stack(
         children: [
@@ -24,8 +24,9 @@ class IconBtnWithCounter extends StatelessWidget {
             height: getProportionateScreenWidth(46),
             width: getProportionateScreenWidth(46),
             decoration: BoxDecoration(
-                color: Colors.black12.withOpacity(0.1), shape: BoxShape.circle),
-            child: Icon(icon),
+                color: Colors.grey.shade300.withOpacity(0.1),
+                shape: BoxShape.circle),
+            child: icon,
           ),
           if (numOfItems != 0)
             Positioned(

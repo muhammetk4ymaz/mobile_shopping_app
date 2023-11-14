@@ -7,13 +7,13 @@ class FavoritesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(),
-      body: Body(),
+      body: const Body(),
     );
   }
 
   AppBar appBar() {
     return AppBar(
-      title: Text('Favorites'),
+      title: const Text('Favorites'),
     );
   }
 }

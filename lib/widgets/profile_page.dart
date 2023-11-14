@@ -20,7 +20,11 @@ class _ProfilePageState extends State<ProfilePage> {
     final userModel = Provider.of<UserModel>(context, listen: false);
 
     try {
-      await userModel.signOut().whenComplete(() => Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SignInScreen(),)));
+      await userModel.signOut().whenComplete(() => Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const SignInScreen(),
+          )));
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -49,10 +53,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Container(
                       width: 100,
                       height: 100,
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(50)),
                           image: DecorationImage(
-                              image: AssetImage('assets/images/pp.jpg'))),
+                              image: NetworkImage(myUser.image))),
                     ),
                   ),
                   /*  Padding(

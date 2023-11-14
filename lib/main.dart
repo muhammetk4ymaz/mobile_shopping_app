@@ -7,6 +7,7 @@ import 'package:flutter_mobile_shopping_app/providers/user_model.dart';
 import 'package:flutter_mobile_shopping_app/screens/bag/bag_screen.dart';
 import 'package:flutter_mobile_shopping_app/screens/favorites/favorites_screen.dart';
 import 'package:flutter_mobile_shopping_app/screens/home/home_screen.dart';
+import 'package:flutter_mobile_shopping_app/screens/shop/shop_screen.dart';
 
 import 'package:flutter_mobile_shopping_app/size_config.dart';
 import 'package:flutter_mobile_shopping_app/theme.dart';
@@ -15,7 +16,7 @@ import 'package:flutter_mobile_shopping_app/widgets/landing_page.dart';
 
 import 'package:flutter_mobile_shopping_app/widgets/my_custom_bottom_navigation_bar.dart';
 import 'package:flutter_mobile_shopping_app/widgets/profile_page.dart';
-import 'package:flutter_mobile_shopping_app/widgets/shop_page.dart';
+
 import 'package:flutter_mobile_shopping_app/widgets/tab_items.dart';
 import 'package:provider/provider.dart';
 
@@ -45,9 +46,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: theme(),
-
-        // home: LandingPage(),
-        home: LandingPage(),
+        home: const LandingPage(),
       ),
     );
   }
@@ -74,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Map<TabItem, Widget> _bottomBarPages() {
     return {
       TabItem.Home: const HomeScreen(),
-      TabItem.Shop: const ShopPage(),
+      TabItem.Shop: const ShopScreen(),
       TabItem.Favorites: const FavoritesScreen(),
       TabItem.Bag: const BagScreen(),
       TabItem.Profile: const ProfilePage(),

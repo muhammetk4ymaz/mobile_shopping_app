@@ -54,13 +54,13 @@ class _BodyState extends State<Body> {
                       horizontal: getProportionateScreenWidth(20)),
                   child: Column(
                     children: [
-                      Spacer(),
+                      const Spacer(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: List.generate(
                             splashData.length, (index) => buildDot(index)),
                       ),
-                      Spacer(
+                      const Spacer(
                         flex: 2,
                       ),
                       Column(
@@ -69,10 +69,10 @@ class _BodyState extends State<Body> {
                             text: 'Sign In',
                             press: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => SignInScreen(),
+                                builder: (context) => const SignInScreen(),
                               ));
                             },
-                            color: Color.fromRGBO(46, 98, 188, 1),
+                            color: const Color.fromRGBO(46, 98, 188, 1),
                           ),
                           SizedBox(
                             height: getProportionateScreenHeight(10),
@@ -81,14 +81,14 @@ class _BodyState extends State<Body> {
                             text: 'Sign Up',
                             press: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => SignUpScreen(),
+                                builder: (context) => const SignUpScreen(),
                               ));
                             },
                             color: Colors.red.shade400,
                           ),
                         ],
                       ),
-                      Spacer(),
+                      const Spacer(),
                     ],
                   ),
                 ))
@@ -100,7 +100,7 @@ class _BodyState extends State<Body> {
 
   Container buildDot(int index) {
     return Container(
-      margin: EdgeInsets.only(right: 5),
+      margin: const EdgeInsets.only(right: 5),
       width: currentPage == index ? 20 : 6,
       height: 6,
       decoration: BoxDecoration(

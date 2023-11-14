@@ -12,13 +12,12 @@ class CheckoutBag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productModel = Provider.of<ProductModel>(context, listen: true);
-    debugPrint('checkout');
     return Container(
       padding: EdgeInsets.symmetric(
           vertical: getProportionateScreenWidth(15),
-          horizontal: getProportionateScreenWidth(30)),
+          horizontal: getProportionateScreenWidth(20)),
       height: 150,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30), topRight: Radius.circular(30)),
@@ -40,12 +39,15 @@ class CheckoutBag extends StatelessWidget {
                       children: [
                         TextSpan(
                           text: "\$${productModel.getTotal()}",
-                          style: TextStyle(fontSize: 16, color: Colors.black),
+                          style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold),
                         )
                       ]),
                 ),
                 SizedBox(
-                  width: getProportionateScreenWidth(190),
+                  width: getProportionateScreenWidth(210),
                   child: DefaultButton(
                       text: 'Check Out', press: () {}, color: Colors.black),
                 )

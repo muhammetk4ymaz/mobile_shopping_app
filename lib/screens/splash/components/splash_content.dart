@@ -14,7 +14,7 @@ class SplashContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Spacer(),
+        const Spacer(),
         Text(
           'EYTSHOP',
           style: TextStyle(
@@ -22,12 +22,12 @@ class SplashContent extends StatelessWidget {
               fontWeight: FontWeight.bold,
               fontSize: getProportionateScreenWidth(45)),
         ),
-        Spacer(
+        const Spacer(
           flex: 2,
         ),
         Text(
           text,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.grey,
             fontWeight: FontWeight.w500,
           ),

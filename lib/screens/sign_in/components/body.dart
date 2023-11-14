@@ -37,7 +37,7 @@ class Body extends StatelessWidget {
               SizedBox(
                 height: (SizeConfig.screenHeight! * 0.08),
               ),
-              SignForm(),
+              const SignForm(),
               SizedBox(
                 height: (SizeConfig.screenHeight! * 0.08),
               ),
@@ -74,13 +74,13 @@ class Body extends StatelessWidget {
                   GestureDetector(
                     onTap: () =>
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => SignUpScreen(),
+                      builder: (context) => const SignUpScreen(),
                     )),
                     child: Text(
                       "Sign Up",
                       style: TextStyle(
                           fontSize: getProportionateScreenWidth(16),
-                          color: Color.fromRGBO(46, 98, 188, 1)),
+                          color: const Color.fromRGBO(46, 98, 188, 1)),
                     ),
                   )
                 ],

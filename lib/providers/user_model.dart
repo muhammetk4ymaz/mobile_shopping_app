@@ -3,7 +3,7 @@ import 'package:flutter_mobile_shopping_app/models/my_user.dart';
 import 'package:flutter_mobile_shopping_app/services/auth_service.dart';
 import 'package:flutter_mobile_shopping_app/services/dummy_auth_service.dart';
 import 'package:flutter_mobile_shopping_app/services/firebase_auth_service.dart';
-import 'package:flutter_mobile_shopping_app/user_dao_firesbase_firestore.dart';
+
 
 enum ViewState { Idle, Busy }
 
@@ -95,4 +95,6 @@ class UserModel extends ChangeNotifier implements AuthService {
       state = ViewState.Idle;
     }
   }
+
+  
 }

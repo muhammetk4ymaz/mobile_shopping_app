@@ -13,14 +13,8 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SizedBox(
-        width: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [FavoriteProducts()],
-        ),
-      ),
+    return const SafeArea(
+      child: FavoriteProducts(),
     );
   }
 

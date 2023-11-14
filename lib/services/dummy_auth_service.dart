@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_mobile_shopping_app/models/my_user.dart';
 import 'package:flutter_mobile_shopping_app/services/auth_service.dart';
 import 'package:http/http.dart' as http;
@@ -36,20 +37,19 @@ class DummyAuthService implements AuthService {
         }
       }
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
     return null;
   }
 
   @override
-  Future<void> signOut  () async{
-     _myUser = null;
+  Future<void> signOut() async {
+    _myUser = null;
   }
 
   @override
   Future<MyUser?> signUpWithEmailAndPassword(
       String email, String password, String name, String surname) {
-    // TODO: implement signUpWithEmailAndPassword
     throw UnimplementedError();
   }
 }
